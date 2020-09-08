@@ -23,11 +23,6 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
     }
 
     @Override
-    public void clear(ShoppingCart shoppingCart) {
-        shoppingCart.getProducts().clear();
-    }
-
-    @Override
     public ShoppingCart update(ShoppingCart shoppingCart) {
         IntStream.range(0, Storage.shoppingCarts.size())
                  .filter(i -> Storage.shoppingCarts.get(i).getId().equals(shoppingCart.getId()))

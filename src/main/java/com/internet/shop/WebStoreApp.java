@@ -57,9 +57,6 @@ public class WebStoreApp {
         shoppingCartService.deleteProduct(robertShoppingCart, iphoneX);
         System.out.println("Delete iphone from Robert's shopping cart");
         System.out.println(shoppingCartService.getByUser(robert.getId()).getProducts());
-        shoppingCartService.clear(robertShoppingCart);
-        System.out.println("Clear Robert's shopping cart");
-        System.out.println(shoppingCartService.getByUser(robert.getId()).getProducts());
 
         OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
 

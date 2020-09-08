@@ -33,11 +33,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public void clear(ShoppingCart shoppingCart) {
-        shoppingCartDao.clear(shoppingCart);
-    }
-
-    @Override
     public ShoppingCart getByUser(Long userId) {
         return shoppingCartDao.getUserShoppingCard(userId).orElseThrow(() ->
                 new IllegalArgumentException("Can't get shopping card of user with id "

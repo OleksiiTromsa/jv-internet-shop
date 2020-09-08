@@ -8,8 +8,6 @@ public interface ShoppingCartDao {
 
     Optional<ShoppingCart> getUserShoppingCard(Long userId);
 
-    void clear(ShoppingCart shoppingCart);
-
     ShoppingCart update(ShoppingCart shoppingCart);
 
     boolean delete(Long id);
