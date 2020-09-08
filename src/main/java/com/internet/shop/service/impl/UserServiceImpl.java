@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean delete(Long id) {
+    public boolean delete(Long id) {
         return userDao.delete(id);
     }
 }
