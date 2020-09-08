@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OrderDao {
-    Order createOrder(Order order);
+    Order create(Order order);
 
     Optional<Order> get(Long id);
 

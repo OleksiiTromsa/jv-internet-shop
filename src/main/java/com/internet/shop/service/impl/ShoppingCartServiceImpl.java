@@ -18,6 +18,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
+    public void clear(ShoppingCart shoppingCart) {
+        shoppingCart.getProducts().clear();
+        shoppingCartDao.update(shoppingCart);
+    }
+
+    @Override
     public ShoppingCart addProduct(ShoppingCart shoppingCart, Product product) {
         shoppingCart.getProducts().add(product);
         return shoppingCartDao.update(shoppingCart);
@@ -34,7 +40,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart getByUser(Long userId) {
-        return shoppingCartDao.getUserShoppingCard(userId).orElseThrow(() ->
+        return shoppingCartDao.getUserShoppingCart(userId).orElseThrow(() ->
                 new IllegalArgumentException("Can't get shopping card of user with id "
                     + userId));
     }
