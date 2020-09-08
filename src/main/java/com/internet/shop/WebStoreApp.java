@@ -49,7 +49,8 @@ public class WebStoreApp {
         ShoppingCartService shoppingCartService = (ShoppingCartService)
                 injector.getInstance(ShoppingCartService.class);
 
-        ShoppingCart robertShoppingCart = shoppingCartService.getByUser(robert.getId());
+        ShoppingCart robertShoppingCart = new ShoppingCart(robert.getId());
+        shoppingCartService.create(robertShoppingCart);
         shoppingCartService.addProduct(robertShoppingCart, xiaomi);
         shoppingCartService.addProduct(robertShoppingCart, iphoneX);
         System.out.println("Add 2 items to Robert's shopping cart");
