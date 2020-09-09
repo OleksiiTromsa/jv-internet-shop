@@ -20,7 +20,7 @@ public class RegisterNewUserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/users/register.jsp").forward(req, resp);
     }
 
     @Override
@@ -31,20 +31,14 @@ public class RegisterNewUserController extends HttpServlet {
         String password = req.getParameter("pwd");
         String repeatPassword = req.getParameter("pwd-repeat");
 
-        if (name.isEmpty() || login.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()) {
-            req.setAttribute("nullInputMessage", "Please fill everything");
-            req.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(req, resp);
-        }
-
         if (password.equals(repeatPassword)) {
             User newUser = new User(name, login, password);
             userService.create(newUser);
             shoppingCartService.create(new ShoppingCart(newUser.getId()));
-
             resp.sendRedirect(req.getContextPath() + "/");
         } else {
             req.setAttribute("message", "Your password and repeat password aren't the same.");
-            req.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/views/users/register.jsp").forward(req, resp);
         }
     }
 }

@@ -26,14 +26,6 @@ public class AddProductController extends HttpServlet {
         String name = req.getParameter("name");
         String priceString = req.getParameter("price");
 
-        if (name.isEmpty() || priceString.isEmpty()) {
-            req.setAttribute("nullInputMessage", "Please fill everything");
-            req.getRequestDispatcher("/WEB-INF/views/products/add.jsp").forward(req, resp);
-        }
-        if (!priceString.matches("[\\d]*")) {
-            req.setAttribute("notNumberPriceMessage", "Price should be number");
-            req.getRequestDispatcher("/WEB-INF/views/products/add.jsp").forward(req, resp);
-        }
         Long price = Long.valueOf(priceString);
         Product newProduct = new Product(name, price);
         productService.create(newProduct);
