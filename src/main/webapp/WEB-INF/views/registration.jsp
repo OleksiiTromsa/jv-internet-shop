@@ -13,14 +13,19 @@
 <body>
 <h1>Hello! Please provide your user details</h1>
 
-<h4 style="color:red">${message}</h4>
+
 
 <form method="post" action="${pageContext.request.contextPath}/registration">
-    Please provide your login: <input type="text" name="login">
-    Please provide your password: <input type="password" name="pwd">
-    Please repeat your password: <input type="password" name="pwd-repeat">
+    Please provide your name: <input type="text" name="name">
+    <br />Please provide your login: <input type="text" name="login">
+    <br />Please provide your password: <input type="password" name="pwd">
+    <br />Please repeat your password: <input type="password" name="pwd-repeat">
 
-    <button type="submit">Register</button>
+    <br /><button type="submit">Register</button>
 </form>
+
+<h4 style="color:red">${message}</h4>
+<h4 style="color:red">${nullInputMessage}</h4>
+
 </body>
 </html>
