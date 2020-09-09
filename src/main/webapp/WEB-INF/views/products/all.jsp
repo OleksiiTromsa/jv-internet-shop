@@ -5,34 +5,33 @@
     <title>Title</title>
 </head>
 <body>
-<h1>All users page</h1>
+<h1>All products page</h1>
 
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Login</th>
-        <th>Password</th>
+        <th>Price</th>
     </tr>
-    <c:forEach var="user" items="${users}">
+    <c:forEach var="product" items="${products}">
         <tr>
             <td>
-                <c:out value="${user.id}"/>
+                <c:out value="${product.id}"/>
             </td>
             <td>
-                <c:out value="${user.name}"/>
+                <c:out value="${product.name}"/>
             </td>
             <td>
-                <c:out value="${user.login}"/>
+                <c:out value="${product.price}"/>
             </td>
             <td>
-                <c:out value="${user.password}"/>
-            </td>
-            <td>
-                <a href="${pageContext.request.contextPath}/users/delete?id=${user.id}">Delete</a>
+                <a href="${pageContext.request.contextPath}/products/addProductToShoppingCart?id=${product.id}">Buy</a>
             </td>
         </tr>
     </c:forEach>
 </table>
+
+<h4 style="color:lawngreen">${addProductSuccessMessage}</h4>
+
 </body>
 </html>

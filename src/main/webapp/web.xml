@@ -15,7 +15,7 @@
 
     <servlet>
         <servlet-name>allUsers</servlet-name>
-        <servlet-class>com.internet.shop.controllers.UsersController</servlet-class>
+        <servlet-class>com.internet.shop.controllers.GetAllUsersController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>allUsers</servlet-name>
@@ -24,7 +24,7 @@
 
     <servlet>
         <servlet-name>registration</servlet-name>
-        <servlet-class>com.internet.shop.controllers.RegistrationController</servlet-class>
+        <servlet-class>com.internet.shop.controllers.RegisterNewUserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>registration</servlet-name>
@@ -56,5 +56,32 @@
     <servlet-mapping>
         <servlet-name>addProduct</servlet-name>
         <url-pattern>/products/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>allProducts</servlet-name>
+        <servlet-class>com.internet.shop.controllers.GetAllProductsController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>allProducts</servlet-name>
+        <url-pattern>/products/all</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addProductToShoppingCart</servlet-name>
+        <servlet-class>com.internet.shop.controllers.AddProductToShoppingCartController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addProductToShoppingCart</servlet-name>
+        <url-pattern>/products/addProductToShoppingCart</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>getUserShoppingCart</servlet-name>
+        <servlet-class>com.internet.shop.controllers.GetUserShoppingCartController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getUserShoppingCart</servlet-name>
+        <url-pattern>/shopping-carts/get</url-pattern>
     </servlet-mapping>
 </web-app>
