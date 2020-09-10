@@ -21,7 +21,6 @@ public class GetUserShoppingCartController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         ShoppingCart shoppingCart = shoppingCartService.getByUser(USER_ID);
-
         List<Product> products = shoppingCart.getProducts();
 
         req.setAttribute("products", products);
