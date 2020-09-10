@@ -13,7 +13,6 @@
 </form>
 
 <h4 style="color:lawngreen">${productAddedMessage}</h4>
-<h4 style="color:red">${nullInputMessage}</h4>
-<h4 style="color:red">${notNumberPriceMessage}</h4>
+
 </body>
 </html>

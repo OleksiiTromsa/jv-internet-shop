@@ -16,7 +16,6 @@
 </form>
 
 <h4 style="color:red">${message}</h4>
-<h4 style="color:red">${nullInputMessage}</h4>
 
 </body>
 </html>
