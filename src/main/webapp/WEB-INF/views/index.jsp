@@ -11,7 +11,7 @@
     <br /><a href="${pageContext.request.contextPath}/products/add">Add product</a>
     <br /><a href="${pageContext.request.contextPath}/products/all">All products</a>
     <br /><a href="${pageContext.request.contextPath}/shopping-carts/get">Show shopping cart</a>
-    <br /><a href="${pageContext.request.contextPath}/injectData">Inject test data into the DB</a>
+    <br /><a href="${pageContext.request.contextPath}/inject">Inject test data into the DB</a>
 
 </body>
 </html>
