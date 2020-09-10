@@ -12,7 +12,6 @@
         <th>ID</th>
         <th>Name</th>
         <th>Login</th>
-        <th>Password</th>
     </tr>
     <c:forEach var="user" items="${users}">
         <tr>
@@ -24,9 +23,6 @@
             </td>
             <td>
                 <c:out value="${user.login}"/>
-            </td>
-            <td>
-                <c:out value="${user.password}"/>
             </td>
             <td>
                 <a href="${pageContext.request.contextPath}/users/delete?id=${user.id}">Delete</a>
