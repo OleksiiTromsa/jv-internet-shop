@@ -1,4 +1,4 @@
-package com.internet.shop.controllers;
+package com.internet.shop.controllers.products;
 
 import com.internet.shop.lib.Injector;
 import com.internet.shop.model.Product;
@@ -19,7 +19,6 @@ public class GetAllProductsController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         List<Product> allProducts = productService.getAll();
-
         req.setAttribute("products", allProducts);
         req.getRequestDispatcher("/WEB-INF/views/products/all.jsp").forward(req, resp);
     }
