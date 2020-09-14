@@ -1,4 +1,4 @@
-package com.internet.shop.controllers;
+package com.internet.shop.controllers.carts;
 
 import com.internet.shop.lib.Injector;
 import com.internet.shop.model.Product;
@@ -22,8 +22,8 @@ public class GetUserShoppingCartController extends HttpServlet {
             throws ServletException, IOException {
         ShoppingCart shoppingCart = shoppingCartService.getByUser(USER_ID);
         List<Product> products = shoppingCart.getProducts();
-
         req.setAttribute("products", products);
+        req.setAttribute("cartId", shoppingCart.getId());
         req.getRequestDispatcher("/WEB-INF/views/shopping-carts/get.jsp").forward(req, resp);
     }
 }

@@ -15,7 +15,7 @@
 
     <servlet>
         <servlet-name>allUsers</servlet-name>
-        <servlet-class>com.internet.shop.controllers.GetAllUsersController</servlet-class>
+        <servlet-class>com.internet.shop.controllers.users.GetAllUsersController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>allUsers</servlet-name>
@@ -24,7 +24,7 @@
 
     <servlet>
         <servlet-name>registration</servlet-name>
-        <servlet-class>com.internet.shop.controllers.RegisterNewUserController</servlet-class>
+        <servlet-class>com.internet.shop.controllers.users.RegisterNewUserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>registration</servlet-name>
@@ -42,7 +42,7 @@
 
     <servlet>
         <servlet-name>delete</servlet-name>
-        <servlet-class>com.internet.shop.controllers.DeleteUserController</servlet-class>
+        <servlet-class>com.internet.shop.controllers.users.DeleteUserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>delete</servlet-name>
@@ -51,7 +51,7 @@
 
     <servlet>
         <servlet-name>addProduct</servlet-name>
-        <servlet-class>com.internet.shop.controllers.AddProductController</servlet-class>
+        <servlet-class>com.internet.shop.controllers.products.AddProductController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>addProduct</servlet-name>
@@ -60,7 +60,7 @@
 
     <servlet>
         <servlet-name>allProducts</servlet-name>
-        <servlet-class>com.internet.shop.controllers.GetAllProductsController</servlet-class>
+        <servlet-class>com.internet.shop.controllers.products.GetAllProductsController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>allProducts</servlet-name>
@@ -69,7 +69,7 @@
 
     <servlet>
         <servlet-name>addProductToShoppingCart</servlet-name>
-        <servlet-class>com.internet.shop.controllers.AddProductToShoppingCartController</servlet-class>
+        <servlet-class>com.internet.shop.controllers.carts.AddProductToShoppingCartController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>addProductToShoppingCart</servlet-name>
@@ -78,11 +78,10 @@
 
     <servlet>
         <servlet-name>getUserShoppingCart</servlet-name>
-        <servlet-class>com.internet.shop.controllers.GetUserShoppingCartController</servlet-class>
+        <servlet-class>com.internet.shop.controllers.carts.GetUserShoppingCartController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>getUserShoppingCart</servlet-name>
         <url-pattern>/shopping-carts/get</url-pattern>
     </servlet-mapping>
 </web-app>
-

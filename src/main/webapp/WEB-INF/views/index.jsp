@@ -6,12 +6,13 @@
 <body>
     <h1>Welcome to our internet shop!</h1>
 
-    <a href="${pageContext.request.contextPath}/users/registration">User registration</a>
-    <br /><a href="${pageContext.request.contextPath}/users/all">All users</a>
-    <br /><a href="${pageContext.request.contextPath}/products/add">Add product</a>
-    <br /><a href="${pageContext.request.contextPath}/products/all">All products</a>
-    <br /><a href="${pageContext.request.contextPath}/shopping-carts/get">Show shopping cart</a>
-    <br /><a href="${pageContext.request.contextPath}/inject">Inject test data into the DB</a>
+    <a href="${pageContext.request.contextPath}/users/registration">User registration</a><br />
+    <a href="${pageContext.request.contextPath}/users/all">All users</a><br />
+    <a href="${pageContext.request.contextPath}/products/add">Add new product</a><br />
+    <a href="${pageContext.request.contextPath}/products/all">All products</a><br />
+    <a href="${pageContext.request.contextPath}/shopping-carts/get">Show shopping cart</a><br />
+    <a href="${pageContext.request.contextPath}/inject">Inject test data into the DB</a><br />
+    <br /><a href="${pageContext.request.contextPath}/admin/actions">Admin actions</a><br />
 
 </body>
 </html>

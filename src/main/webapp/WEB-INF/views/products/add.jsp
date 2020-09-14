@@ -13,6 +13,8 @@
 </form>
 
 <h4 style="color:lawngreen">${productAddedMessage}</h4>
-
+<form action="${pageContext.request.contextPath}/" method="get">
+    <button type="submit">To main menu</button>
+</form>
 </body>
 </html>

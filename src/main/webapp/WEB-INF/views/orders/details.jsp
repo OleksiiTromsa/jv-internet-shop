@@ -2,14 +2,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Order detail</title>
 </head>
 <body>
-<h1>All products page</h1>
-
+<h2>Order <c:out value="${orderId}"/> details</h2>
 <table border="1">
     <tr>
-        <th>ID</th>
+        <th>ProductID</th>
         <th>Name</th>
         <th>Price</th>
     </tr>
@@ -24,14 +23,9 @@
             <td>
                 <c:out value="${product.price}"/>
             </td>
-            <td>
-                <a href="${pageContext.request.contextPath}/shopping-carts/products/add?id=${product.id}">Buy</a>
-            </td>
         </tr>
     </c:forEach>
 </table>
-
-<h4 style="color:lawngreen">${addProductSuccessMessage}</h4>
 <form action="${pageContext.request.contextPath}/" method="get">
     <button type="submit">To main menu</button>
 </form>
