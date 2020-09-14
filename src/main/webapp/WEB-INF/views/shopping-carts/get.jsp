@@ -30,9 +30,9 @@
         </tr>
     </c:forEach>
 </table>
-<form method="post" action="${pageContext.request.contextPath}/orders/create">
+<form method="post" action="${pageContext.request.contextPath}/orders/complete">
     <input type="hidden" name="cartId" value="${cartId}">
-    <br /><button style="color: green" type="submit">Create order</button>
+    <br /><button style="color: green" type="submit">Complete order</button>
 </form>
 <form action="${pageContext.request.contextPath}/" method="get">
     <button type="submit">To main menu</button>
