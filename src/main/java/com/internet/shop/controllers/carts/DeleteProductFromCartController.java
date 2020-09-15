@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/shopping-carts/products/delete")
 public class DeleteProductFromCartController extends HttpServlet {
-    private static final Long USER_ID = 1L;
+    private static final String USER_ID = "user_id";
     private static final Injector injector = Injector.getInstance("com.internet.shop");
     private final ProductService productService =
             (ProductService) injector.getInstance(ProductService.class);
@@ -24,7 +24,8 @@ public class DeleteProductFromCartController extends HttpServlet {
             throws ServletException, IOException {
         String productIdString = req.getParameter("id");
         Long productId = Long.valueOf(productIdString);
-        shoppingCartService.deleteProduct(shoppingCartService.getByUser(USER_ID),
+        Long userId = (Long) req.getSession().getAttribute(USER_ID);
+        shoppingCartService.deleteProduct(shoppingCartService.getByUser(userId),
                 productService.get(productId));
         resp.sendRedirect(req.getContextPath() + "/shopping-carts/get");
     }
