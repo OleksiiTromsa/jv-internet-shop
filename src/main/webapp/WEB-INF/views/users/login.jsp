@@ -14,5 +14,7 @@
 </form>
 
 <h4 style="color:red">${errorMsg}</h4>
+
+<a href="${pageContext.request.contextPath}/users/registration">User registration</a><br />
 </body>
 </html>
