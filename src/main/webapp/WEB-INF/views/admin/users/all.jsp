@@ -25,10 +25,10 @@
                 <c:out value="${user.login}"/>
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}/users/orders?id=${user.id}">See orders</a>
+                <a href="${pageContext.request.contextPath}/admin/users/orders?id=${user.id}">See orders</a>
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}/users/delete?id=${user.id}">Delete</a>
+                <a href="${pageContext.request.contextPath}/admin/users/delete?id=${user.id}">Delete</a>
             </td>
         </tr>
     </c:forEach>

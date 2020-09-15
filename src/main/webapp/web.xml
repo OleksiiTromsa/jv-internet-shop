@@ -15,11 +15,11 @@
 
     <servlet>
         <servlet-name>allUsers</servlet-name>
-        <servlet-class>com.internet.shop.controllers.users.GetAllUsersController</servlet-class>
+        <servlet-class>com.internet.shop.controllers.admin.GetAllUsersController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>allUsers</servlet-name>
-        <url-pattern>/users/all</url-pattern>
+        <url-pattern>/admin/users/all</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -42,11 +42,11 @@
 
     <servlet>
         <servlet-name>delete</servlet-name>
-        <servlet-class>com.internet.shop.controllers.users.DeleteUserController</servlet-class>
+        <servlet-class>com.internet.shop.controllers.admin.DeleteUserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>delete</servlet-name>
-        <url-pattern>/users/delete</url-pattern>
+        <url-pattern>/admin/users/delete</url-pattern>
     </servlet-mapping>
 
     <servlet>

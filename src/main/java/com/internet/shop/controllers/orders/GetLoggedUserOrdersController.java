@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/orders/logged")
+@WebServlet("/users/orders")
 public class GetLoggedUserOrdersController extends HttpServlet {
     private static final String USER_ID = "user_id";
     private static final Injector injector = Injector.getInstance("com.internet.shop");
@@ -28,6 +28,6 @@ public class GetLoggedUserOrdersController extends HttpServlet {
         List<Order> orders = orderService.getUserOrders(userId);
         req.setAttribute("userName", userService.get(userId).getName());
         req.setAttribute("orders", orders);
-        req.getRequestDispatcher("/WEB-INF/views/users/orders.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/admin/users/orders.jsp").forward(req, resp);
     }
 }
