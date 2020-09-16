@@ -18,7 +18,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter("/*")
+@WebFilter(filterName = "AuthorizationFilter")
 public class AuthorizationFilter implements Filter {
     private static final String USER_ID = "user_id";
     private static final Injector injector = Injector.getInstance("com.internet.shop");
@@ -28,7 +28,7 @@ public class AuthorizationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        protectedUrls.put("/admin/actions", List.of(Role.RoleName.ADMIN));
+        protectedUrls.put("/admin/menu", List.of(Role.RoleName.ADMIN));
         protectedUrls.put("/admin/users/all", List.of(Role.RoleName.ADMIN));
         protectedUrls.put("/admin/users/delete", List.of(Role.RoleName.ADMIN));
         protectedUrls.put("/admin/users/orders", List.of(Role.RoleName.ADMIN));
@@ -53,14 +53,12 @@ public class AuthorizationFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) response;
         String requestUrl = req.getServletPath();
 
-        if (protectedUrls.get(requestUrl) == null) {
+        if (!protectedUrls.containsKey(requestUrl)) {
             chain.doFilter(req, resp);
             return;
         }
-
         Long userId = (Long) req.getSession().getAttribute(USER_ID);
         User user = userService.get(userId);
-
         if (isAuthorized(user, protectedUrls.get(requestUrl))) {
             chain.doFilter(req, resp);
         } else {
@@ -70,7 +68,6 @@ public class AuthorizationFilter implements Filter {
 
     @Override
     public void destroy() {
-
     }
 
     private boolean isAuthorized(User user, List<Role.RoleName> authorizedRoles) {

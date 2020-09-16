@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Admin actions</title>
+    <title>Admin menu</title>
 </head>
 <body>
     <a href="${pageContext.request.contextPath}/admin/users/all">All users</a><br />

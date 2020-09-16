@@ -16,6 +16,7 @@
 <form action="${pageContext.request.contextPath}/" method="get">
     <button type="submit">To main menu</button>
 </form>
-<a href="${pageContext.request.contextPath}/admin/actions">Admin actions</a><br />
+<a href="${pageContext.request.contextPath}/admin/products/all">See all products</a><br />
+<a href="${pageContext.request.contextPath}/admin/menu">Admin menu</a><br />
 </body>
 </html>

@@ -12,7 +12,7 @@
     <a href="${pageContext.request.contextPath}/products/all">All products</a><br />
     <a href="${pageContext.request.contextPath}/shopping-carts/get">Show shopping cart</a><br />
     <a href="${pageContext.request.contextPath}/users/orders">Show logged user orders</a><br />
-    <br /><a href="${pageContext.request.contextPath}/admin/actions">Admin actions</a><br />
+    <br /><a href="${pageContext.request.contextPath}/admin/menu">Admin menu</a><br />
 
 </body>
 </html>
