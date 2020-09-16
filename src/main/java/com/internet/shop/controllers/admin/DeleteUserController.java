@@ -1,17 +1,17 @@
-package com.internet.shop.controllers;
+package com.internet.shop.controllers.admin;
 
 import com.internet.shop.lib.Injector;
-import com.internet.shop.model.ShoppingCart;
-import com.internet.shop.model.User;
 import com.internet.shop.service.ShoppingCartService;
 import com.internet.shop.service.UserService;
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class InjectDataController extends HttpServlet {
+@WebServlet("/admin/users/delete")
+public class DeleteUserController extends HttpServlet {
     private static final Injector injector = Injector.getInstance("com.internet.shop");
     private final UserService userService = (UserService) injector.getInstance(UserService.class);
     private final ShoppingCartService shoppingCartService =
@@ -20,10 +20,11 @@ public class InjectDataController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        User testUser = new User("name", "login", "123");
-        userService.create(testUser);
-        shoppingCartService.create(new ShoppingCart(testUser.getId()));
+        String userId = req.getParameter("id");
+        Long id = Long.valueOf(userId);
+        userService.delete(id);
+        shoppingCartService.delete(shoppingCartService.getByUser(id).getId());
 
-        req.getRequestDispatcher("/WEB-INF/views/inject.jsp").forward(req, resp);
+        resp.sendRedirect(req.getContextPath() + "/admin/users/all");
     }
 }

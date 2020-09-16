@@ -1,4 +1,4 @@
-package com.internet.shop.controllers.orders;
+package com.internet.shop.controllers.admin;
 
 import com.internet.shop.lib.Injector;
 import com.internet.shop.model.Order;
@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/users/orders")
-public class GetCurrentUserOrdersController extends HttpServlet {
+@WebServlet("/admin/users/orders")
+public class GetSelectedUserOrdersController extends HttpServlet {
     private static final Injector injector = Injector.getInstance("com.internet.shop");
     private final OrderService orderService =
             (OrderService) injector.getInstance(OrderService.class);
@@ -27,6 +27,6 @@ public class GetCurrentUserOrdersController extends HttpServlet {
         List<Order> orders = orderService.getUserOrders(userId);
         req.setAttribute("userName", userService.get(userId).getName());
         req.setAttribute("orders", orders);
-        req.getRequestDispatcher("/WEB-INF/views/users/orders.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/admin/users/orders.jsp").forward(req, resp);
     }
 }
