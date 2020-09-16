@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/admin/users/delete")
 public class DeleteUserController extends HttpServlet {
-    public static final String USER_ID = "userId";
     private static final Injector injector = Injector.getInstance("com.internet.shop");
     private final UserService userService = (UserService) injector.getInstance(UserService.class);
     private final ShoppingCartService shoppingCartService =
@@ -22,14 +21,10 @@ public class DeleteUserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        Long userId = Long.valueOf(req.getParameter("id"));
-        userService.delete(userId);
-        shoppingCartService.delete(shoppingCartService.getByUser(userId).getId());
-        HttpSession session = req.getSession();
-        if (userId.equals(session.getAttribute(USER_ID))) {
-            session.invalidate();
-            resp.sendRedirect(req.getContextPath() + "/user/login");
-        }
+        String userId = req.getParameter("id");
+        Long id = Long.valueOf(userId);
+        userService.delete(id);
+        shoppingCartService.delete(shoppingCartService.getByUser(id).getId());
 
         resp.sendRedirect(req.getContextPath() + "/admin/users/all");
     }
