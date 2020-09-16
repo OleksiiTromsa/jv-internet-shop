@@ -6,6 +6,7 @@
 <body>
     <h1>Welcome to our internet shop!</h1>
 
+    <a href="${pageContext.request.contextPath}/users/logout">Logout</a><br />
     <a href="${pageContext.request.contextPath}/users/registration">User registration</a><br />
     <a href="${pageContext.request.contextPath}/users/login">User login</a><br />
     <a href="${pageContext.request.contextPath}/products/add">Add new product</a><br />
