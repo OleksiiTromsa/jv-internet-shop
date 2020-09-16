@@ -4,9 +4,9 @@
     <title>Adding products</title>
 </head>
 <body>
-<h1>Please, provide good details</h1>
+<h1>Please, provide product details</h1>
 
-<form method="post" action="${pageContext.request.contextPath}/products/add">
+<form method="post" action="${pageContext.request.contextPath}/admin/products/add">
     <br />Please provide name of product: <input required type="text" name="name">
     <br />Please provide price of product: <input required type="number" name="price">
     <br /><button type="submit">Add</button>
@@ -16,5 +16,6 @@
 <form action="${pageContext.request.contextPath}/" method="get">
     <button type="submit">To main menu</button>
 </form>
+<a href="${pageContext.request.contextPath}/admin/actions">Admin actions</a><br />
 </body>
 </html>
