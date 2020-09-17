@@ -32,5 +32,6 @@
 <form action="${pageContext.request.contextPath}/" method="get">
     <button type="submit">To main menu</button>
 </form>
+<a href="${pageContext.request.contextPath}/admin/menu">Admin menu</a><br />
 </body>
 </html>

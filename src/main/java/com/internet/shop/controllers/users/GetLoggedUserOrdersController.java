@@ -1,4 +1,4 @@
-package com.internet.shop.controllers.orders;
+package com.internet.shop.controllers.users;
 
 import com.internet.shop.lib.Injector;
 import com.internet.shop.model.Order;
@@ -28,6 +28,6 @@ public class GetLoggedUserOrdersController extends HttpServlet {
         List<Order> orders = orderService.getUserOrders(userId);
         req.setAttribute("userName", userService.get(userId).getName());
         req.setAttribute("orders", orders);
-        req.getRequestDispatcher("/WEB-INF/views/admin/users/orders.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/users/orders.jsp").forward(req, resp);
     }
 }

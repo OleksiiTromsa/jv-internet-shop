@@ -1,4 +1,4 @@
-package com.internet.shop.controllers.admin;
+package com.internet.shop.controllers.users;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,11 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/admin/actions")
-public class GetAdminActionsListController extends HttpServlet {
+@WebServlet("/users/logout")
+public class LogoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/views/admin/actions.jsp").forward(req, resp);
+        req.getSession().invalidate();
+        resp.sendRedirect(req.getContextPath() + "/");
     }
 }

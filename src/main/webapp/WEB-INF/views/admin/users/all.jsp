@@ -25,9 +25,6 @@
                 <c:out value="${user.login}"/>
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}/admin/users/orders?id=${user.id}">See orders</a>
-            </td>
-            <td>
                 <a href="${pageContext.request.contextPath}/admin/users/delete?id=${user.id}">Delete</a>
             </td>
         </tr>
@@ -36,5 +33,6 @@
 <form action="${pageContext.request.contextPath}/" method="get">
     <button type="submit">To main menu</button>
 </form>
+<a href="${pageContext.request.contextPath}/admin/menu">Admin menu</a><br />
 </body>
 </html>

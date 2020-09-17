@@ -31,11 +31,12 @@
     </c:forEach>
 </table>
 
-<form action="${pageContext.request.contextPath}/products/add" method get>
+<form action="${pageContext.request.contextPath}/admin/products/add" method get>
     <button type="submit">Add product</button>
 </form>
 <form action="${pageContext.request.contextPath}/" method="get">
     <button type="submit">To main menu</button>
 </form>
+<a href="${pageContext.request.contextPath}/admin/menu">Admin menu</a><br />
 </body>
 </html>
