@@ -10,6 +10,12 @@ public class Product {
         this.price = price;
     }
 
+    public Product(Long id, String name, Long price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
     public Product(Product product) {
         this.id = product.id;
         this.name = product.name;
