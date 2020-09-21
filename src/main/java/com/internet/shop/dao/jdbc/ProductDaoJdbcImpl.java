@@ -2,6 +2,7 @@ package com.internet.shop.dao.jdbc;
 
 import com.internet.shop.dao.ProductDao;
 import com.internet.shop.exceptions.DataProcessingException;
+import com.internet.shop.lib.Dao;
 import com.internet.shop.model.Product;
 import com.internet.shop.util.ConnectionUtil;
 import java.sql.Connection;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Dao
 public class ProductDaoJdbcImpl implements ProductDao {
     @Override
     public Product create(Product product) {

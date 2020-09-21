@@ -1,22 +1,26 @@
 package com.internet.shop;
 
-import com.internet.shop.dao.jdbc.ProductDaoJdbcImpl;
+import com.internet.shop.lib.Injector;
 import com.internet.shop.model.Product;
+import com.internet.shop.service.ProductService;
 
 public class Main {
+    private static Injector injector = Injector.getInstance("com.internet.shop");
+
     public static void main(String[] args) {
-        ProductDaoJdbcImpl productDao = new ProductDaoJdbcImpl();
+        ProductService productService = (ProductService) injector.getInstance(ProductService.class);
+
         Product nokia = new Product("Nokia", 100L);
-        nokia = productDao.create(nokia);
-        Product nokia2 = productDao.get(nokia.getId()).get();
+        nokia = productService.create(nokia);
+        Product nokia2 = productService.get(nokia.getId());
         System.out.println(nokia2);
         nokia.setPrice(180L);
-        productDao.update(nokia);
+        productService.update(nokia);
         System.out.println(nokia);
 
-        productDao.getAll().forEach(System.out::println);
+        productService.getAll().forEach(System.out::println);
 
-        System.out.println(productDao.delete(nokia.getId()));
-        productDao.getAll().forEach(System.out::println);
+        System.out.println(productService.delete(nokia.getId()));
+        productService.getAll().forEach(System.out::println);
     }
 }
