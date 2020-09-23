@@ -3,8 +3,10 @@ package com.internet.shop;
 import com.internet.shop.lib.Injector;
 import com.internet.shop.model.Product;
 import com.internet.shop.model.Role;
+import com.internet.shop.model.ShoppingCart;
 import com.internet.shop.model.User;
 import com.internet.shop.service.ProductService;
+import com.internet.shop.service.ShoppingCartService;
 import com.internet.shop.service.UserService;
 
 import java.util.Set;
@@ -52,10 +54,17 @@ public class Main {
 //        userService.delete(2L);
 //        System.out.println(userService.getAll());
 
-        userService.delete(1L);
-        userService.delete(3L);
-        userService.delete(4L);
-        userService.delete(5L);
-        userService.delete(6L);
+
+        ShoppingCartService cartService =
+                (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
+
+        User bob = new User("Bob", "Bob", "1");
+        bob.setRoles(Set.of(Role.of("USER")));
+        bob = userService.create(bob);
+
+        ShoppingCart bobsCart = new ShoppingCart(bob.getId());
+        bobsCart = cartService.create(bobsCart);
+
+
     }
 }
