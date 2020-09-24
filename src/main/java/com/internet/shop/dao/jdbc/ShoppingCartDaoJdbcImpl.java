@@ -5,10 +5,12 @@ import com.internet.shop.exceptions.DataProcessingException;
 import com.internet.shop.lib.Dao;
 import com.internet.shop.model.Product;
 import com.internet.shop.model.ShoppingCart;
-import com.internet.shop.model.User;
 import com.internet.shop.util.ConnectionUtil;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -95,8 +97,8 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
 
     @Override
     public ShoppingCart update(ShoppingCart cart) {
-        String query = "UPDATE shopping_carts SET user_id = ? " +
-                "WHERE cart_id = ? AND deleted = FALSE";
+        String query = "UPDATE shopping_carts SET user_id = ? "
+                + "WHERE cart_id = ? AND deleted = FALSE";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setLong(1, cart.getUserId());
@@ -126,11 +128,7 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
         }
 
         removeAllProductsFromShoppingCart(id);
-
-        if (itemsDeleted == 1) {
-            return true;
-        }
-        return false;
+        return itemsDeleted == 1;
     }
 
     private ShoppingCart getCartFromResultSet(ResultSet resultSet) throws SQLException {
@@ -140,11 +138,11 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     }
 
     private List<Product> getListOfProducts(Long cartId) {
-        String query = "SELECT cp.product_id AS id, p.product_name AS name, p.price " +
-                "FROM carts_products cp " +
-                "INNER JOIN products p " +
-                "ON cp.product_id = p.product_id " +
-                "WHERE cp.cart_id = ?;";
+        String query = "SELECT cp.product_id AS id, p.product_name AS name, p.price "
+                + "FROM carts_products cp "
+                + "INNER JOIN products p "
+                + "ON cp.product_id = p.product_id "
+                + "WHERE cp.cart_id = ?;";
         List<Product> products = new ArrayList<>();
 
         try (Connection connection = ConnectionUtil.getConnection()) {
@@ -186,8 +184,8 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
                 statement.setLong(2, product.getId());
                 statement.executeUpdate();
             } catch (SQLException ex) {
-                throw new DataProcessingException("Can't insert products to shopping cart with id = "
-                        + cart.getId(), ex);
+                throw new DataProcessingException("Can't insert products to shopping cart "
+                        + "with id = " + cart.getId(), ex);
             }
         }
     }

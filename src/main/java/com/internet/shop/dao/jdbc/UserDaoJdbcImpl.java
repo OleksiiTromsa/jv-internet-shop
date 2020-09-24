@@ -131,11 +131,7 @@ public class UserDaoJdbcImpl implements UserDao {
         } catch (SQLException ex) {
             throw new DataProcessingException("Can't delete product with id = " + id, ex);
         }
-
-        if (itemsDeleted == 1 && removeUserRoles(id)) {
-            return true;
-        }
-        return false;
+        return (itemsDeleted == 1 && removeUserRoles(id));
     }
 
     private User getUserFromResultSet(ResultSet resultSet) throws SQLException {
@@ -147,10 +143,10 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     private Set<Role> getUserRolesFromResultSet(Long userId) {
-        String query = "SELECT ur.role_id AS id, role_name AS name " +
-                "FROM users_roles ur " +
-                "INNER JOIN roles r ON ur.role_id = r.role_id " +
-                "WHERE user_id = ?";
+        String query = "SELECT ur.role_id AS id, role_name AS name "
+                + "FROM users_roles ur "
+                + "INNER JOIN roles r ON ur.role_id = r.role_id "
+                + "WHERE user_id = ?";
         Set<Role> roles = new HashSet<>();
 
         try (Connection connection = ConnectionUtil.getConnection()) {
