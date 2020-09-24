@@ -28,12 +28,15 @@ public class OrderDaoJdbcImpl implements OrderDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Order order = getOrderFromResultSet(resultSet);
-                order.setProducts(getListOfProducts(order.getId()));
                 orders.add(order);
             }
         } catch (SQLException ex) {
             throw new DataProcessingException("Can't get all orders of user with id = "
                     + userId, ex);
+        }
+
+        for (Order order: orders) {
+            order.setProducts(getListOfProducts(order.getId()));
         }
         return orders;
     }
@@ -61,20 +64,24 @@ public class OrderDaoJdbcImpl implements OrderDao {
     @Override
     public Optional<Order> get(Long id) {
         String query = "SELECT * FROM orders WHERE order_id = ? AND deleted = FALSE";
+        Order order = null;
+
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                Order order = getOrderFromResultSet(resultSet);
-                order.setProducts(getListOfProducts(order.getId()));
-                return Optional.of(order);
+                order = getOrderFromResultSet(resultSet);
             }
         } catch (SQLException ex) {
             throw new DataProcessingException("Can't get order with id = "
                     + id, ex);
         }
-        return Optional.empty();
+
+        if (order != null) {
+            order.setProducts(getListOfProducts(order.getId()));
+        }
+        return Optional.ofNullable(order);
     }
 
     @Override

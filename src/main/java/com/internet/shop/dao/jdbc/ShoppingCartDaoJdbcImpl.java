@@ -20,20 +20,23 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     @Override
     public Optional<ShoppingCart> getUserShoppingCart(Long userId) {
         String query = "SELECT * FROM shopping_carts WHERE user_id = ? AND deleted = FALSE";
+        ShoppingCart cart = null;
+
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setLong(1, userId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                ShoppingCart cart = getCartFromResultSet(resultSet);
-                cart.setProducts(getListOfProducts(cart.getId()));
-                return Optional.of(cart);
+                cart = getCartFromResultSet(resultSet);
             }
         } catch (SQLException ex) {
             throw new DataProcessingException("Can't get shopping cart of user with id = "
                     + userId, ex);
         }
-        return Optional.empty();
+        if (cart != null) {
+            cart.setProducts(getListOfProducts(cart.getId()));
+        }
+        return Optional.ofNullable(cart);
     }
 
     @Override
@@ -58,20 +61,24 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     @Override
     public Optional<ShoppingCart> get(Long id) {
         String query = "SELECT * FROM shopping_carts WHERE cart_id = ? AND deleted = FALSE";
+        ShoppingCart cart = null;
+
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                ShoppingCart cart = getCartFromResultSet(resultSet);
-                cart.setProducts(getListOfProducts(cart.getId()));
-                return Optional.of(cart);
+                cart = getCartFromResultSet(resultSet);
             }
         } catch (SQLException ex) {
             throw new DataProcessingException("Can't get shopping cart with id = "
                     + id, ex);
         }
-        return Optional.empty();
+
+        if (cart != null) {
+            cart.setProducts(getListOfProducts(cart.getId()));
+        }
+        return Optional.ofNullable(cart);
     }
 
     @Override

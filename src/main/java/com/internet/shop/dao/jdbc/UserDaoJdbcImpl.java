@@ -22,19 +22,22 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public Optional<User> findByLogin(String login) {
         String query = "SELECT * FROM users WHERE login = ? AND deleted = FALSE;";
+        User user = null;
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, login);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                User user = getUserFromResultSet(resultSet);
-                user.setRoles(getUserRolesFromResultSet(user.getId()));
-                return Optional.of(user);
+                user = getUserFromResultSet(resultSet);
             }
         } catch (SQLException ex) {
             throw new DataProcessingException("Can't get user with login " + login, ex);
         }
-        return Optional.empty();
+
+        if (user != null) {
+            user.setRoles(getUserRolesFromResultSet(user.getId()));
+        }
+        return Optional.ofNullable(user);
     }
 
     @Override
@@ -62,19 +65,22 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public Optional<User> get(Long id) {
         String query = "SELECT * FROM users WHERE user_id = ? AND deleted = FALSE;";
+        User user = null;
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                User user = getUserFromResultSet(resultSet);
-                user.setRoles(getUserRolesFromResultSet(user.getId()));
-                return Optional.of(user);
+                user = getUserFromResultSet(resultSet);
             }
         } catch (SQLException ex) {
             throw new DataProcessingException("Can't get user with id = " + id, ex);
         }
-        return Optional.empty();
+
+        if (user != null) {
+            user.setRoles(getUserRolesFromResultSet(user.getId()));
+        }
+        return Optional.ofNullable(user);
     }
 
     @Override
@@ -95,7 +101,6 @@ public class UserDaoJdbcImpl implements UserDao {
         for (User user: users) {
             user.setRoles(getUserRolesFromResultSet(user.getId()));
         }
-
         return users;
     }
 
