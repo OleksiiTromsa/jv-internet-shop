@@ -171,34 +171,20 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     private boolean insertUserRoles(User user) {
-        for (Role role: user.getRoles()) {
-            String query = "SELECT role_id FROM roles WHERE role_name = ?;";
-            try (Connection connection = ConnectionUtil.getConnection()) {
-                PreparedStatement statement = connection.prepareStatement(query);
-                statement.setString(1, role.getRoleName().name());
-                ResultSet resultSet = statement.executeQuery();
-                if (resultSet.next()) {
-                    role.setId(resultSet.getLong("role_id"));
-                }
-            } catch (SQLException ex) {
-                throw new DataProcessingException("Can't get user role's id", ex);
-            }
-
-            String secondQuery = "INSERT INTO users_roles (user_id, role_id) VALUES (?, ?);";
-            try (Connection connection = ConnectionUtil.getConnection()) {
+        String secondQuery = "INSERT INTO users_roles (user_id, role_id) "
+                + "VALUES (?, (SELECT role_id FROM roles WHERE role_name = ?));";
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            int rolesInserted = 0;
+            for (Role role: user.getRoles()) {
                 PreparedStatement statement = connection.prepareStatement(secondQuery);
                 statement.setLong(1, user.getId());
-                statement.setLong(2, role.getId());
-                int rolesInserted = statement.executeUpdate();
-                if (rolesInserted > 0) {
-                    return true;
-                }
-            } catch (SQLException ex) {
-                throw new DataProcessingException("Can't add role"
-                        + role.getRoleName().name() + " to new user", ex);
+                statement.setString(2, role.getRoleName().name());
+                rolesInserted = statement.executeUpdate();
             }
+            return rolesInserted > 0;
+        } catch (SQLException ex) {
+            throw new DataProcessingException("Can't add roles to new user", ex);
         }
-        return false;
     }
 
     private boolean removeUserRoles(Long userId) {
