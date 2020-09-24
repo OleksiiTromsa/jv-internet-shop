@@ -125,18 +125,14 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     @Override
     public boolean delete(Long id) {
         String query = "UPDATE shopping_carts SET deleted = TRUE WHERE cart_id = ?";
-        int itemsDeleted = 0;
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setLong(1, id);
-            itemsDeleted = statement.executeUpdate();
+            return statement.executeUpdate() == 1;
         } catch (SQLException ex) {
             throw new DataProcessingException("Can't delete shopping cart with id = "
                     + id, ex);
         }
-
-        removeAllProductsFromShoppingCart(id);
-        return itemsDeleted == 1;
     }
 
     private ShoppingCart getCartFromResultSet(ResultSet resultSet) throws SQLException {
@@ -185,16 +181,16 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
 
     private void insertProductsToShoppingCart(ShoppingCart cart) {
         String query = "INSERT INTO carts_products (cart_id, product_id) VALUES (?, ?);";
-        for (Product product: cart.getProducts()) {
-            try (Connection connection = ConnectionUtil.getConnection()) {
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            for (Product product: cart.getProducts()) {
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setLong(1, cart.getId());
                 statement.setLong(2, product.getId());
                 statement.executeUpdate();
-            } catch (SQLException ex) {
-                throw new DataProcessingException("Can't insert products to shopping cart "
-                        + "with id = " + cart.getId(), ex);
             }
+        } catch (SQLException ex) {
+            throw new DataProcessingException("Can't insert products to shopping cart "
+                    + "with id = " + cart.getId(), ex);
         }
     }
 }

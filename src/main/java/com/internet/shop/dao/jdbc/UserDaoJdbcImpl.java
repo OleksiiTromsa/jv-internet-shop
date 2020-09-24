@@ -206,14 +206,10 @@ public class UserDaoJdbcImpl implements UserDao {
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setLong(1, userId);
-            int rolesDeleted = statement.executeUpdate();
-            if (rolesDeleted > 0) {
-                return true;
-            }
+            return statement.executeUpdate() > 0;
         } catch (SQLException ex) {
             throw new DataProcessingException("Can't delete roles of user with id = "
                     + userId, ex);
         }
-        return false;
     }
 }

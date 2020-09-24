@@ -19,7 +19,7 @@ import java.util.Optional;
 public class OrderDaoJdbcImpl implements OrderDao {
     @Override
     public List<Order> getUserOrders(Long userId) {
-        String query = "SELECT * FROM orders WHERE user_id = ?;";
+        String query = "SELECT * FROM orders WHERE user_id = ? AND deleted = FALSE;";
         List<Order> orders = new ArrayList<>();
 
         try (Connection connection = ConnectionUtil.getConnection()) {
@@ -128,18 +128,14 @@ public class OrderDaoJdbcImpl implements OrderDao {
     @Override
     public boolean delete(Long id) {
         String query = "UPDATE orders SET deleted = TRUE WHERE order_id = ?";
-        int itemsDeleted = 0;
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setLong(1, id);
-            itemsDeleted = statement.executeUpdate();
+            return statement.executeUpdate() == 1;
         } catch (SQLException ex) {
             throw new DataProcessingException("Can't delete order with id = "
                     + id, ex);
         }
-
-        removeAllProductsFromOrder(id);
-        return itemsDeleted == 1;
     }
 
     private Order getOrderFromResultSet(ResultSet resultSet) throws SQLException {
