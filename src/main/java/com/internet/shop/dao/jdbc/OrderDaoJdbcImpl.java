@@ -184,16 +184,16 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     private void insertProductsToOrder(Order order) {
         String query = "INSERT INTO orders_products (order_id, product_id) VALUES (?, ?);";
-        for (Product product: order.getProducts()) {
-            try (Connection connection = ConnectionUtil.getConnection()) {
-                PreparedStatement statement = connection.prepareStatement(query);
-                statement.setLong(1, order.getId());
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setLong(1, order.getId());
+            for (Product product: order.getProducts()) {
                 statement.setLong(2, product.getId());
                 statement.executeUpdate();
-            } catch (SQLException ex) {
-                throw new DataProcessingException("Can't insert products to order with id = "
-                        + order.getId(), ex);
             }
+        } catch (SQLException ex) {
+            throw new DataProcessingException("Can't insert products to order with id = "
+                    + order.getId(), ex);
         }
     }
 }

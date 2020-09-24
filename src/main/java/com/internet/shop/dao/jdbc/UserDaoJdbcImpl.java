@@ -35,7 +35,7 @@ public class UserDaoJdbcImpl implements UserDao {
         }
 
         if (user != null) {
-            user.setRoles(getUserRolesFromResultSet(user.getId()));
+            user.setRoles(getUserRolesWithIds(user.getId()));
         }
         return Optional.ofNullable(user);
     }
@@ -58,7 +58,8 @@ public class UserDaoJdbcImpl implements UserDao {
             throw new DataProcessingException("Can't create new user", ex);
         }
 
-        insertUserRoles(user);
+        insertUserRolesToTable(user);
+        user.setRoles(getUserRolesWithIds(user.getId()));
         return user;
     }
 
@@ -78,7 +79,7 @@ public class UserDaoJdbcImpl implements UserDao {
         }
 
         if (user != null) {
-            user.setRoles(getUserRolesFromResultSet(user.getId()));
+            user.setRoles(getUserRolesWithIds(user.getId()));
         }
         return Optional.ofNullable(user);
     }
@@ -99,7 +100,7 @@ public class UserDaoJdbcImpl implements UserDao {
         }
 
         for (User user: users) {
-            user.setRoles(getUserRolesFromResultSet(user.getId()));
+            user.setRoles(getUserRolesWithIds(user.getId()));
         }
         return users;
     }
@@ -121,7 +122,7 @@ public class UserDaoJdbcImpl implements UserDao {
         }
 
         removeUserRoles(user.getId());
-        insertUserRoles(user);
+        insertUserRolesToTable(user);
         return user;
     }
 
@@ -145,7 +146,7 @@ public class UserDaoJdbcImpl implements UserDao {
         return new User(userId, userName, login, password);
     }
 
-    private Set<Role> getUserRolesFromResultSet(Long userId) {
+    private Set<Role> getUserRolesWithIds(Long userId) {
         String query = "SELECT ur.role_id AS id, role_name AS name "
                 + "FROM users_roles ur "
                 + "INNER JOIN roles r ON ur.role_id = r.role_id "
@@ -168,16 +169,16 @@ public class UserDaoJdbcImpl implements UserDao {
         return roles;
     }
 
-    private boolean insertUserRoles(User user) {
-        String secondQuery = "INSERT INTO users_roles (user_id, role_id) "
+    private boolean insertUserRolesToTable(User user) {
+        String query = "INSERT INTO users_roles (user_id, role_id) "
                 + "VALUES (?, (SELECT role_id FROM roles WHERE role_name = ?));";
         try (Connection connection = ConnectionUtil.getConnection()) {
             int rolesInserted = 0;
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setLong(1, user.getId());
             for (Role role: user.getRoles()) {
-                PreparedStatement statement = connection.prepareStatement(secondQuery);
-                statement.setLong(1, user.getId());
                 statement.setString(2, role.getRoleName().name());
-                rolesInserted = statement.executeUpdate();
+                rolesInserted += statement.executeUpdate();
             }
             return rolesInserted > 0;
         } catch (SQLException ex) {
