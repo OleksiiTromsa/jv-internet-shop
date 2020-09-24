@@ -128,15 +128,13 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public boolean delete(Long id) {
         String query = "UPDATE users SET deleted = TRUE WHERE user_id = ?;";
-        int itemsDeleted = 0;
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setLong(1, id);
-            itemsDeleted = statement.executeUpdate();
+            return statement.executeUpdate() == 1;
         } catch (SQLException ex) {
             throw new DataProcessingException("Can't delete product with id = " + id, ex);
         }
-        return (itemsDeleted == 1 && removeUserRoles(id));
     }
 
     private User getUserFromResultSet(ResultSet resultSet) throws SQLException {
