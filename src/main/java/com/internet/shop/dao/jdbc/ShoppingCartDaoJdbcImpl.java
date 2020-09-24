@@ -55,6 +55,7 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
             throw new DataProcessingException("Can't create shopping cart for user with id = "
                     + cart.getUserId(), ex);
         }
+        insertProductsToShoppingCart(cart);
         return cart;
     }
 
