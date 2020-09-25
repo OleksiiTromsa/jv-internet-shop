@@ -37,8 +37,8 @@ public class RegisterNewUserController extends HttpServlet {
 
         if (password.equals(repeatPassword)) {
             User newUser = new User(name, login, password);
-            userService.create(newUser);
             newUser.setRoles(Set.of(Role.of("USER")));
+            userService.create(newUser);
             shoppingCartService.create(new ShoppingCart(newUser.getId()));
             resp.sendRedirect(req.getContextPath() + "/");
         } else {
