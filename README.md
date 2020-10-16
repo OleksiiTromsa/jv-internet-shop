@@ -1,4 +1,4 @@
-##Internet shop
+## Internet shop
 Internet shop with basic operations. 
 
 The main goal of this project was to create model of online shop built on SOLID principles and RBAC filter
@@ -7,16 +7,16 @@ This project is based on N-tier architecture with DB, DAO, service and controlle
 There are two DAO layers, first use simple List as database, second use JDBC and Local MySQL DB.
 
 Depending on the role the user will have access to different functions:<br>
-#####No role:<br>
+##### No role:<br>
 - register
 - log in
 - inject mock data to DB<br>
-#####User role:
+##### User role:
 - view products
 - buy/remove products from shopping cart
 - complete the order
 - view list of own orders<br>
-#####Admin role:
+##### Admin role:
 - view/delete users
 - view/add/delete products
 - view/delete orders
@@ -31,7 +31,7 @@ Depending on the role the user will have access to different functions:<br>
 - JSP
 - HTML, CSS
 
-###Launch guide
+### Launch guide
 1) Download and configure Apache Tomcat
 2) Download and install MySQl and MySql workbench
 3) Use script in \main\resources\init_db.sql as a query in MySQL workbench to create schema and all needed tables.
@@ -41,5 +41,5 @@ Depending on the role the user will have access to different functions:<br>
 - admin: login "admin", password "1", role "ADMIN"
 - three products for testing
 
-####Authors
+#### Authors
 [Oleksii Tromsa](https://github.com/OleksiiTromsa)
