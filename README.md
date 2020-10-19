@@ -4,7 +4,6 @@ Internet shop with basic operations.
 The main goal of this project was to create model of online shop built on SOLID principles and RBAC filter
 strategy.
 This project is based on N-tier architecture with DB, DAO, service and controllers layers.
-There are two DAO layers, first use simple List as database, second use JDBC and Local MySQL DB.
 
 Depending on the role the user will have access to different functions:<br>
 ##### No role:<br>
